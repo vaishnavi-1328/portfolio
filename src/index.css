@@ -459,10 +459,11 @@ section {
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 0 48px;
-  /* description panel is absolute, logo block is in normal flow centered */
+  padding: 0 60px;
+  gap: 60px;
 }
 
 .exp-bg-number {
@@ -548,11 +549,10 @@ section {
 }
 
 .exp-description-panel {
-  position: absolute;
-  left: 48px;
-  top: 50%;
-  transform: translateY(-50%);
-  max-width: 420px;
+  /* No position:absolute — lives in flex row, vertically centered by parent */
+  max-width: 400px;
+  width: 400px;
+  flex-shrink: 0;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 16px;

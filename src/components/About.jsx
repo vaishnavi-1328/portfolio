@@ -25,15 +25,15 @@ const ExperienceStage = ({ exp, index, globalProgress }) => {
   );
   const stageOpacity = useSpring(rawStageOpacity, SPRING);
 
-  // Logo x: 0 (centered) → 380px (right), over the second half of slot
+  // Logo slides right from natural flex-center position
   const rawLogoX = useTransform(
     globalProgress,
     [slotMid, slotMid + slideSpan],
-    [0, 380]
+    [0, 260]
   );
   const logoX = useSpring(rawLogoX, SPRING);
 
-  // Title flies up: 80px below → 0, starting at slotMid
+  // Title flies up from below logo
   const rawTitleY = useTransform(
     globalProgress,
     [slotMid, slotMid + slideSpan * 0.7],
@@ -48,11 +48,11 @@ const ExperienceStage = ({ exp, index, globalProgress }) => {
   );
   const titleOpacity = useSpring(rawTitleOpacity, SPRING);
 
-  // Description flies in from left, same timing as title
+  // Description flies in from far left (off-screen) so phase 1 shows only logo
   const rawDescX = useTransform(
     globalProgress,
     [slotMid, slotMid + slideSpan * 0.7],
-    [-120, 0]
+    [-500, 0]
   );
   const descX = useSpring(rawDescX, SPRING);
 

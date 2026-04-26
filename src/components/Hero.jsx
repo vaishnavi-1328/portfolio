@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { FaLinkedin, FaGithub, FaEnvelope, FaArrowDown } from "react-icons/fa";
-import { personalInfo } from "../data/content";
+import { personalInfo, about } from "../data/content";
 
 const Hero = () => {
   const [imageError, setImageError] = useState(false);
@@ -16,7 +17,12 @@ const Hero = () => {
   return (
     <section className="hero-section" id="summary">
       <div className="container hero-container">
-        <div className="hero-text" data-aos="fade-up">
+        <motion.div
+          className="hero-text"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <span className="greeting-tag">Hello, I'm</span>
           <h1 className="hero-name">{personalInfo.name}</h1>
           <div className="typed-wrapper">
@@ -39,6 +45,7 @@ const Hero = () => {
             Building production ML pipelines and scalable data solutions.
             Passionate about transforming complex data into actionable insights.
           </p>
+          <p className="hero-about">{about.summary}</p>
 
           <div className="hero-buttons">
             <a
@@ -78,9 +85,14 @@ const Hero = () => {
               <FaEnvelope />
             </a>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="hero-visual" data-aos="fade-up" data-aos-delay="200">
+        <motion.div
+          className="hero-visual"
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        >
           <div className="avatar-circle">
             {!imageError ? (
               <img
@@ -93,7 +105,7 @@ const Hero = () => {
               <span className="avatar-initials">VS</span>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
 
       <div className="scroll-indicator" onClick={() => scrollToSection("about")}>

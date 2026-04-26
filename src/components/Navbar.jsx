@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 
-const Navbar = ({ darkMode, toggleDarkMode }) => {
+const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("summary");
@@ -10,7 +10,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const sections = ["summary", "about", "skills", "projects", "publications", "contact"];
+      const sections = ["summary", "about", "skills", "projects", "publications", "recommendations", "blogs", "contact"];
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -64,11 +64,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
               </button>
             </li>
           ))}
-          <li>
-            <button onClick={toggleDarkMode} className="theme-toggle" aria-label="Toggle theme">
-              {darkMode ? <FaSun /> : <FaMoon />}
-            </button>
-          </li>
         </ul>
 
         <button
@@ -91,10 +86,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
               {item.label}
             </button>
           ))}
-          <button onClick={toggleDarkMode} className="mobile-nav-link">
-            {darkMode ? <FaSun /> : <FaMoon />}
-            <span>{darkMode ? "Light Mode" : "Dark Mode"}</span>
-          </button>
         </div>
       )}
     </nav>

@@ -27,6 +27,7 @@ export const about = {
 export const experience = [
   {
     company: "BorgWarner",
+    logo: "/logos/Borgwarner_logo.png",
     role: "Data Science Intern",
     location: "Detroit, Michigan",
     period: "Oct 2025 – Present",
@@ -38,6 +39,7 @@ export const experience = [
   },
   {
     company: "Michigan State University",
+    logo: "/logos/collegeOfEngineering_logo.jpg",
     role: "Research Assistant – Data Science",
     location: "East Lansing, Michigan",
     period: "Jun 2025 – Jan 2026",
@@ -49,6 +51,7 @@ export const experience = [
   },
   {
     company: "Michigan State University",
+    logo: "/logos/collegeOfEngineering_logo.jpg",
     role: "Research Assistant – Computer Vision",
     location: "East Lansing, Michigan",
     period: "Jun 2025 – Oct 2025",
@@ -59,6 +62,7 @@ export const experience = [
   },
   {
     company: "Boeing",
+    logo: "/logos/Boeing-Logo.png",
     role: "Data Engineer",
     location: "India",
     period: "Jul 2022 – Aug 2024",
@@ -71,6 +75,7 @@ export const experience = [
   },
   {
     company: "Dutchview",
+    logo: null,
     role: "Intern",
     location: "Remote",
     period: "Feb 2022 – Jul 2022",

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -14,11 +14,6 @@ import Contact from "./components/Contact";
 import CursorEffect from "./components/CursorEffect";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(() => {
-    const saved = sessionStorage.getItem("darkMode");
-    return saved === "true";
-  });
-
   useEffect(() => {
     AOS.init({
       duration: 600,
@@ -28,23 +23,10 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    sessionStorage.setItem("darkMode", darkMode.toString());
-    if (darkMode) {
-      document.body.style.background = "#0f172a";
-    } else {
-      document.body.style.background = "#ffffff";
-    }
-  }, [darkMode]);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
   return (
-    <div className={darkMode ? "dark-mode" : ""}>
+    <div>
       <CursorEffect />
-      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <Navbar />
       <main>
         <Hero />
         <About />

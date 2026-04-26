@@ -51,7 +51,7 @@ export const experience = [
   },
   {
     company: "Michigan State University",
-    logo: "/logos/collegeOfEngineering_logo.jpg",
+    logo: "/logos/MSU_College_of_verterinary_science.jpeg",
     role: "Research Assistant – Computer Vision",
     location: "East Lansing, Michigan",
     period: "Jun 2025 – Oct 2025",
@@ -75,7 +75,7 @@ export const experience = [
   },
   {
     company: "Dutchview",
-    logo: null,
+    logo: "/logos/DutchView-Logo-1-464x309.png",
     role: "Intern",
     location: "Remote",
     period: "Feb 2022 – Jul 2022",

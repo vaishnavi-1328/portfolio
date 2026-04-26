@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { FaGraduationCap } from "react-icons/fa";
 import { experience, education } from "../data/content";
 
-const SPRING = { stiffness: 60, damping: 20, restDelta: 0.001 };
+const SPRING = { stiffness: 35, damping: 18, restDelta: 0.001 };
 
 const ExperienceStage = ({ exp, index, globalProgress }) => {
   const count = 5;
@@ -115,7 +115,7 @@ const ProgressDot = ({ globalProgress, index, count }) => {
   const slotEnd = (index + 1) / count;
 
   const bgColor = useTransform(globalProgress, (v) =>
-    v >= slotStart && v < slotEnd ? "#a855f7" : "#2e1a5e"
+    v >= slotStart && v < slotEnd ? "#f97316" : "#fed7aa"
   );
   const width = useTransform(globalProgress, (v) =>
     v >= slotStart && v < slotEnd ? "24px" : "8px"
@@ -152,7 +152,7 @@ const About = () => {
       <div
         className="experience-scroll-container"
         ref={containerRef}
-        style={{ height: "800vh", position: "relative" }}
+        style={{ height: "1400vh", position: "relative" }}
       >
         <div className="experience-sticky-stage">
           {experience.map((exp, i) => (

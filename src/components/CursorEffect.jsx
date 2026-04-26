@@ -49,7 +49,7 @@ const CursorEffect = () => {
           width: isHovering ? "60px" : "40px",
           height: isHovering ? "60px" : "40px",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(249, 115, 22, 0.15) 0%, transparent 70%)",
           transform: "translate(-50%, -50%)",
           pointerEvents: "none",
           zIndex: 9998,
@@ -73,8 +73,8 @@ const CursorEffect = () => {
           transition: "width 0.15s ease, height 0.15s ease, background 0.15s ease",
           opacity: isVisible ? 1 : 0,
           boxShadow: isHovering
-            ? "0 0 20px rgba(168, 85, 247, 0.6), 0 0 40px rgba(168, 85, 247, 0.3)"
-            : "0 0 10px rgba(168, 85, 247, 0.4)",
+            ? "0 0 20px rgba(249, 115, 22, 0.6), 0 0 40px rgba(249, 115, 22, 0.3)"
+            : "0 0 10px rgba(249, 115, 22, 0.4)",
         }}
       />
     </>

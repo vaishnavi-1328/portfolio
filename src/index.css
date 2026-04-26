@@ -462,6 +462,7 @@ section {
   align-items: center;
   justify-content: center;
   padding: 0 48px;
+  /* description panel is absolute, logo block is in normal flow centered */
 }
 
 .exp-bg-number {
@@ -477,22 +478,16 @@ section {
   bottom: 0;
 }
 
-/* Large logo block — framer-motion controls x, CSS centers vertically */
+/* Large logo block — framer-motion controls x only, flexbox centers vertically */
 .exp-logo-block {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  position: absolute;
-  top: 50%;
-  /* horizontal centering done via framer-motion x offset, not CSS left */
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  width: fit-content;
-  transform: translateY(-50%);
+  /* NO position:absolute, NO CSS transform — framer-motion x is the only transform */
   text-align: center;
   z-index: 2;
+  flex-shrink: 0;
 }
 
 .exp-logo-wrapper {

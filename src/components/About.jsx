@@ -1,52 +1,67 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { FaGraduationCap } from "react-icons/fa";
 import { experience, education } from "../data/content";
 
+const SPRING = { stiffness: 60, damping: 20, restDelta: 0.001 };
+
 const ExperienceStage = ({ exp, index, globalProgress }) => {
   const count = 5;
-  const slotStart = index / count;
-  const slotEnd = (index + 1) / count;
-  const slotMid = (slotStart + slotEnd) / 2;
-  const buffer = 0.010;
+  const slotSize = 1 / count;
+  const slotStart = index * slotSize;
+  const slotEnd = slotStart + slotSize;
+  // Phase 1: slotStart → slotMid (logo centered, fading in)
+  // Phase 2: slotMid → slotEnd (logo slides right, title + desc appear)
+  const slotMid = slotStart + slotSize * 0.45;
+  const fadeIn  = slotSize * 0.08;   // how long fade-in takes
+  const fadeOut = slotSize * 0.08;
+  const slideSpan = slotSize * 0.40; // how long the slide lasts
 
-  // Whole stage fades in/out
-  const stageOpacity = useTransform(
+  // Stage fades in at slot start, holds, fades out at slot end
+  const rawStageOpacity = useTransform(
     globalProgress,
-    [slotStart, slotStart + buffer * 2, slotEnd - buffer * 2, slotEnd],
+    [slotStart, slotStart + fadeIn, slotEnd - fadeOut, slotEnd],
     [0, 1, 1, 0]
   );
+  const stageOpacity = useSpring(rawStageOpacity, SPRING);
 
-  // Logo slides from center-right to far right
-  const logoX = useTransform(
+  // Logo x: 0 (centered) → 380px (right), over the second half of slot
+  const rawLogoX = useTransform(
     globalProgress,
-    [slotMid, slotEnd - buffer],
+    [slotMid, slotMid + slideSpan],
     [0, 380]
   );
+  const logoX = useSpring(rawLogoX, SPRING);
 
-  // Title flies up from below: starts 120px below final position, invisible
-  const titleY = useTransform(
+  // Title flies up: 80px below → 0, starting at slotMid
+  const rawTitleY = useTransform(
     globalProgress,
-    [slotMid, slotMid + buffer * 3],
-    [120, 0]
+    [slotMid, slotMid + slideSpan * 0.7],
+    [80, 0]
   );
-  const titleOpacity = useTransform(
+  const titleY = useSpring(rawTitleY, SPRING);
+
+  const rawTitleOpacity = useTransform(
     globalProgress,
-    [slotMid, slotMid + buffer * 3, slotEnd - buffer * 2, slotEnd],
+    [slotMid, slotMid + slideSpan * 0.3, slotEnd - fadeOut, slotEnd],
     [0, 1, 1, 0]
   );
+  const titleOpacity = useSpring(rawTitleOpacity, SPRING);
 
-  // Description flies in from left
-  const descOpacity = useTransform(
+  // Description flies in from left, same timing as title
+  const rawDescX = useTransform(
     globalProgress,
-    [slotMid, slotMid + buffer * 2, slotEnd - buffer * 2, slotEnd],
+    [slotMid, slotMid + slideSpan * 0.7],
+    [-120, 0]
+  );
+  const descX = useSpring(rawDescX, SPRING);
+
+  const rawDescOpacity = useTransform(
+    globalProgress,
+    [slotMid, slotMid + slideSpan * 0.3, slotEnd - fadeOut, slotEnd],
     [0, 1, 1, 0]
   );
-  const descX = useTransform(
-    globalProgress,
-    [slotMid, slotMid + buffer * 3],
-    [-100, 0]
-  );
+  const descOpacity = useSpring(rawDescOpacity, SPRING);
 
   const jobNumber = String(index + 1).padStart(2, "0");
 
@@ -54,7 +69,7 @@ const ExperienceStage = ({ exp, index, globalProgress }) => {
     <motion.div className="exp-stage" style={{ opacity: stageOpacity }}>
       <div className="exp-bg-number">{jobNumber}</div>
 
-      {/* Description panel — left side, flies in */}
+      {/* Description panel — left side, flies in from left */}
       <motion.div
         className="exp-description-panel"
         style={{ opacity: descOpacity, x: descX }}
@@ -71,7 +86,7 @@ const ExperienceStage = ({ exp, index, globalProgress }) => {
         </div>
       </motion.div>
 
-      {/* Logo block — large, centered, slides right on scroll */}
+      {/* Logo block — slides right. Title is child so it moves with logo */}
       <motion.div className="exp-logo-block" style={{ x: logoX }}>
         {exp.logo ? (
           <div className="exp-logo-wrapper">
@@ -111,12 +126,7 @@ const ProgressDot = ({ globalProgress, index, count }) => {
 
   return (
     <motion.div
-      style={{
-        backgroundColor: bgColor,
-        width,
-        height: "8px",
-        borderRadius,
-      }}
+      style={{ backgroundColor: bgColor, width, height: "8px", borderRadius }}
     />
   );
 };

@@ -8,31 +8,44 @@ const ExperienceStage = ({ exp, index, globalProgress }) => {
   const slotStart = index / count;
   const slotEnd = (index + 1) / count;
   const slotMid = (slotStart + slotEnd) / 2;
-  const buffer = 0.012;
+  const buffer = 0.010;
 
+  // Whole stage fades in/out
   const stageOpacity = useTransform(
     globalProgress,
     [slotStart, slotStart + buffer * 2, slotEnd - buffer * 2, slotEnd],
     [0, 1, 1, 0]
   );
 
-  // Logo moves from center toward right (px, not %)
+  // Logo slides from center-right to far right
   const logoX = useTransform(
     globalProgress,
     [slotMid, slotEnd - buffer],
-    [0, 320]
+    [0, 380]
   );
 
+  // Title flies up from below: starts 120px below final position, invisible
+  const titleY = useTransform(
+    globalProgress,
+    [slotMid, slotMid + buffer * 3],
+    [120, 0]
+  );
+  const titleOpacity = useTransform(
+    globalProgress,
+    [slotMid, slotMid + buffer * 3, slotEnd - buffer * 2, slotEnd],
+    [0, 1, 1, 0]
+  );
+
+  // Description flies in from left
   const descOpacity = useTransform(
     globalProgress,
     [slotMid, slotMid + buffer * 2, slotEnd - buffer * 2, slotEnd],
     [0, 1, 1, 0]
   );
-
   const descX = useTransform(
     globalProgress,
     [slotMid, slotMid + buffer * 3],
-    [-80, 0]
+    [-100, 0]
   );
 
   const jobNumber = String(index + 1).padStart(2, "0");
@@ -41,7 +54,7 @@ const ExperienceStage = ({ exp, index, globalProgress }) => {
     <motion.div className="exp-stage" style={{ opacity: stageOpacity }}>
       <div className="exp-bg-number">{jobNumber}</div>
 
-      {/* Description panel — absolutely positioned left, flies in from off-screen */}
+      {/* Description panel — left side, flies in */}
       <motion.div
         className="exp-description-panel"
         style={{ opacity: descOpacity, x: descX }}
@@ -58,24 +71,26 @@ const ExperienceStage = ({ exp, index, globalProgress }) => {
         </div>
       </motion.div>
 
-      {/* Center column: logo + title, logo slides right */}
-      <div className="exp-center-content">
-        <motion.div style={{ x: logoX }}>
-          {exp.logo ? (
-            <div className="exp-logo-wrapper">
-              <img src={exp.logo} alt={exp.company} />
-            </div>
-          ) : (
-            <div className="logo-fallback">DV</div>
-          )}
-        </motion.div>
+      {/* Logo block — large, centered, slides right on scroll */}
+      <motion.div className="exp-logo-block" style={{ x: logoX }}>
+        {exp.logo ? (
+          <div className="exp-logo-wrapper">
+            <img src={exp.logo} alt={exp.company} />
+          </div>
+        ) : (
+          <div className="logo-fallback-large">DV</div>
+        )}
 
-        <div className="exp-title-block">
+        {/* Title flies up from below the logo */}
+        <motion.div
+          className="exp-title-block"
+          style={{ y: titleY, opacity: titleOpacity }}
+        >
           <h2 className="exp-role">{exp.role}</h2>
           <p className="exp-company-name">{exp.company}</p>
           <p className="exp-period">{exp.period} · {exp.location}</p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </motion.div>
   );
 };

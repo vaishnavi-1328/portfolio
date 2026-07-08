@@ -7,12 +7,6 @@ const CARD_WIDTH = 320;
 const CARD_GAP = 24;
 const TRACK_PADDING = 96;
 
-const fallbackGradients = [
-  "linear-gradient(135deg, #1a0533, #4c1d95)",
-  "linear-gradient(135deg, #2d1b69, #7c3aed)",
-  "linear-gradient(135deg, #0d0d1a, #6d28d9)",
-  "linear-gradient(135deg, #1e0a3c, #a855f7)",
-];
 
 const ProjectCard = ({ project, index }) => {
   const [imageError, setImageError] = useState(false);
@@ -23,7 +17,7 @@ const ProjectCard = ({ project, index }) => {
 
   return (
     <div className={`project-card ${!hasImage ? "project-card-no-image" : ""}`}>
-      {hasImage ? (
+      {hasImage && (
         <div className="project-thumbnail">
           <img
             src={project.image}
@@ -31,11 +25,6 @@ const ProjectCard = ({ project, index }) => {
             onError={() => setImageError(true)}
           />
         </div>
-      ) : (
-        <div
-          className="project-thumbnail"
-          style={{ background: fallbackGradients[index % fallbackGradients.length] }}
-        />
       )}
 
       <div className="project-content">

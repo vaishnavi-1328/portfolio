@@ -49,7 +49,7 @@ const Hero = () => {
 
           <div className="hero-buttons">
             <a
-              href="https://drive.google.com/your-resume-link"
+              href="https://drive.google.com/file/d/18XCnhKpGBuFOyPkQ66X84FI668Jf3Fna/view?usp=drive_link"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary"

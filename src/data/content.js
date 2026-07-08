@@ -247,13 +247,13 @@ export const publications = [
     title: "Security and Privacy in 5G-Enabled Internet of Things: A Data Analysis Perspective",
     publisher: "Springer International Publishing",
     year: "2021",
-    link: "#",
+    link: "https://link.springer.com/chapter/10.1007/978-3-030-67490-8_12",
   },
   {
     title: "Automated Supply Chain Management System",
     publisher: "GIJET - Grenze International Journal of Engineering and Technology",
     year: "2023",
-    link: "#",
+    link: "https://openurl.ebsco.com/EPDB%3Agcd%3A11%3A26940731/detailv2?sid=ebsco%3Aplink%3Ascholar&id=ebsco%3Agcd%3A162319861&crl=c&link_origin=www.google.com",
   },
 ];
 
